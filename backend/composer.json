@@ -1,7 +1,10 @@
 {
     "name": "theujnh/movie_rental",
     "scripts": {
-        "dev": "php -S localhost:8000 -t public",
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:8000 -t public"
+        ],
         "fix": "php-cs-fixer fix",
         "analyse": "phpstan analyse",
         "test": "phpunit"
