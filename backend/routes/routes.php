@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Application\Movie\MovieRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
@@ -30,6 +31,19 @@ return static function (App $app): void {
             'films_count' => (int) $count,
         ], JSON_THROW_ON_ERROR));
 
+        return $response->withHeader('Content-Type', 'application/json');
+    });
+
+    $app->get('/movies', function (
+        ServerRequestInterface $request,
+        ResponseInterface $response,
+    ) use ($app) {
+        /** @var MovieRepository $repo */
+        $repo = $app->getContainer()->get(MovieRepository::class);
+
+        $movies = $repo->paginate(33, 30);
+
+        $response->getBody()->write(json_encode($movies, JSON_THROW_ON_ERROR));
         return $response->withHeader('Content-Type', 'application/json');
     });
 };
