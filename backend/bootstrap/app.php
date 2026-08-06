@@ -17,5 +17,6 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 (require __DIR__ . '/../routes/routes.php')($app);
+(require __DIR__ . '/error_middleware.php')($app);
 
 return $app;

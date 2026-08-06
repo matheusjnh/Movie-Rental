@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Infrastructure\Database\Mysql\MysqlConnectionFactory;
 use App\Application\Movie\MovieRepository;
+use App\Application\Movie\Usecase\ListMovies;
 use App\Infrastructure\Persistence\Mysql\Movie\PdoMovieRepository;
 use DI\ContainerBuilder;
 
@@ -30,6 +31,8 @@ $containerBuilder->addDefinitions([
     ),
 
     MovieRepository::class => autowire(PdoMovieRepository::class),
+
+    ListMovies::class => autowire(ListMovies::class)
 ]);
 
 return $containerBuilder->build();
